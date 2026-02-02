@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+.hidden {
+  display: none !important;
+}
+
 body {
   min-height: 100vh;
   font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
@@ -253,6 +257,45 @@ h1 {
 
 .overlay-btn:hover {
   transform: translateY(-1px) scale(1.03);
+}
+
+.photo-orbit {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 12;
+}
+
+.photo-orbit img {
+  width: min(220px, 50vw);
+  height: min(220px, 50vw);
+  border-radius: 32px;
+  object-fit: cover;
+  box-shadow: 0 26px 60px rgba(116, 7, 74, 0.55);
+  border: 4px solid rgba(255, 240, 247, 0.95);
+  animation: photo-drift 22s infinite linear;
+  filter: saturate(1.1) contrast(1.03);
+}
+
+@keyframes photo-drift {
+  0% {
+    transform: translate(-40vw, -25vh) rotate(-8deg) scale(0.9);
+  }
+  25% {
+    transform: translate(35vw, -30vh) rotate(4deg) scale(1);
+  }
+  50% {
+    transform: translate(42vw, 22vh) rotate(-3deg) scale(1.05);
+  }
+  75% {
+    transform: translate(-32vw, 28vh) rotate(7deg) scale(1);
+  }
+  100% {
+    transform: translate(-40vw, -25vh) rotate(-8deg) scale(0.9);
+  }
 }
 
 /* Responsive tweaks */

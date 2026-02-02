@@ -3,6 +3,8 @@ const noBtn = document.getElementById("noBtn");
 const subtitle = document.getElementById("subtitle");
 const overlay = document.getElementById("overlay");
 const closeOverlay = document.getElementById("closeOverlay");
+const photoOrbit = document.getElementById("photoOrbit");
+const photoImage = document.getElementById("photoImage");
 
 const messages = [
   "Wow. That button must be broken, because 'no' isn't allowed for you. 😌",
@@ -12,11 +14,37 @@ const messages = [
   "Plot twist: Every time you chase 'no', you just get closer to 'yes'. 😉",
 ];
 
+const photoSources = [
+  "Images/1.jpg",
+  "Images/2.jpg",
+  "Images/3.jpg",
+  "Images/4.jpg",
+  "Images/5.jpg",
+  "Images/6.jpg",
+  "Images/7.jpg",
+  "Images/8.jpg",
+  "Images/9.jpg",
+  "Images/10.jpg",
+  "Images/12.jpg",
+  "Images/13.jpg",
+  "Images/14.jpg",
+  "Images/15.jpg",
+];
+
 let attempts = 0;
 
 function updateSubtitle() {
   const index = attempts % messages.length;
   subtitle.textContent = messages[index];
+}
+
+function showFloatingPhoto() {
+  if (!photoOrbit || !photoImage) return;
+
+  const randomIndex = Math.floor(Math.random() * photoSources.length);
+  photoImage.src = photoSources[randomIndex];
+
+  photoOrbit.classList.remove("hidden");
 }
 
 function playfulNoEscape(event) {
@@ -63,6 +91,7 @@ if (noBtn) {
 if (yesBtn) {
   yesBtn.addEventListener("click", () => {
     overlay.classList.remove("hidden");
+    showFloatingPhoto();
   });
 }
 
