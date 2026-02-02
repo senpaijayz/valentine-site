@@ -4,7 +4,6 @@ const subtitle = document.getElementById("subtitle");
 const overlay = document.getElementById("overlay");
 const closeOverlay = document.getElementById("closeOverlay");
 const photoOrbit = document.getElementById("photoOrbit");
-const photoImage = document.getElementById("photoImage");
 
 const messages = [
   "Wow. That button must be broken, because 'no' isn't allowed for you. 😌",
@@ -38,11 +37,30 @@ function updateSubtitle() {
   subtitle.textContent = messages[index];
 }
 
-function showFloatingPhoto() {
-  if (!photoOrbit || !photoImage) return;
+function showFloatingPhotos() {
+  if (!photoOrbit) return;
 
-  const randomIndex = Math.floor(Math.random() * photoSources.length);
-  photoImage.src = photoSources[randomIndex];
+  // Clear any previous photos
+  photoOrbit.innerHTML = "";
+
+  // Decide how many photos (5 or 6)
+  const count = 5 + Math.floor(Math.random() * 2);
+
+  // Create a shuffled copy so we don't repeat images
+  const shuffled = [...photoSources].sort(() => Math.random() - 0.5);
+  const selected = shuffled.slice(0, count);
+
+  selected.forEach((src) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "One of my favorite memories with you 💞";
+
+    // Slight random scale tweak so they don't all look identical
+    const scale = 0.92 + Math.random() * 0.16;
+    img.style.transform = `scale(${scale})`;
+
+    photoOrbit.appendChild(img);
+  });
 
   photoOrbit.classList.remove("hidden");
 }
@@ -91,7 +109,7 @@ if (noBtn) {
 if (yesBtn) {
   yesBtn.addEventListener("click", () => {
     overlay.classList.remove("hidden");
-    showFloatingPhoto();
+    showFloatingPhotos();
   });
 }
 
